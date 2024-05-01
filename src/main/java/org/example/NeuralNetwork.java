@@ -89,6 +89,19 @@ public class NeuralNetwork {
 	this.bias3 = new double[] {-0.2926,  0.1783};
     }
 
+    /**
+     * @brief Выбирает действие в зависимости от входных параметров.
+     * Все координаты нормализованы, т.е. они в диапазоне координат
+     * [0..1], где (0, 0) - левый нижний угол экрана, а (1, 1) -
+     * правый верхний угол экрана.
+     * @param dinoY координата y динозаврика.
+     * @param dinoDY скорость по оси y динозаврика(">0" значит динозаврик летит вверх, а "<0" - вниз).
+     * @param obstacleDistX расстояние до ближайшего препятствия по оси x. Если препятствия нет, то можно передать -1.
+     * @param obstacleDistY расстояние до ближайшего препятствия по оси y. Если препятствия нет, то можно передать 0.
+     * @param obstacleWidth ширина препятствия. Если препятствия нет, то можно передать 0.
+     * @param obstacleWidth высота препятствия. Если препятствия нет, то можно передать 0.
+     * @return номер действия: 0 - ничего не делать, 1 - прыгнуть
+     */
     public int selectAction(double dinoY, double dinoDY, double obstacleDistX, double obstacleDistY, double obstacleWidth, double obstacleHeight) {
 	double[] input = { dinoY, dinoDY, obstacleDistX, obstacleDistY, obstacleWidth, obstacleHeight };
 	double[] output = this.forward(input);
@@ -140,12 +153,6 @@ public class NeuralNetwork {
 	    }
 	}
 	return y;
-    }
-
-    public static void main(String[] args) {
-	NeuralNetwork nn = new NeuralNetwork();
-	System.out.println("Selected action: " + nn.selectAction(0.0, 0.0, 0.39575, 0.0, 0.06944368, 0.16059652));
-	System.out.println("Selected action: " + nn.selectAction(0.0, 0.0, 0.227, 0.0, 0.06944368, 0.16059652));
     }
 
 };
